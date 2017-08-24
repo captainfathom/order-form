@@ -21,7 +21,7 @@ var breakfast = new Product ('breakfast', 'img/breakfast.jpg', 'breakfast');
 var bubblegum = new Product ('bubblegum', 'img/bubblegum.jpg', 'bubblegum');
 var chair = new Product ('chair', 'img/chair.jpg', 'chair');
 var cthulhu = new Product ('cthulhu', 'img/cthulhu.jpg', 'cthulhu');
-var dogDuck = new Product ('dog duck', 'img/dog-duck.jpg', 'dogDuck');
+var dogDuck = new Product ('dog-duck', 'img/dog-duck.jpg', 'dogDuck');
 var dragon = new Product ('dragon', 'img/dragon.jpg', 'dragon');
 var pen = new Product ('pen', 'img/pen.jpg', 'pen');
 var petSweep = new Product ('pet-sweep', 'img/pet-sweep.jpg', 'petSweep');
@@ -41,36 +41,50 @@ var wineGlass = new Product ('wine-glass', 'img/wine-glass.jpg', 'wineGlass');
 // };
 // var name = ' ';
 // var qty = ' ';
-var orderArray = [];
+if (localStorage.getItem('order')) {
+  var orderArray = JSON.parse(localStorage.getItem('order'));
+} else {
+  var orderArray = [];
+};
 // function to create new order instance.
-function createOrder (event) {
-  event.preventDefault();
-  // var newOrder = new Order;
-  name = this.elements['products'].value;
-  qty = parseInt(this.elements['quantity'].value);
-  orderArray.push([name, qty]);
-  localStorage.setItem('order', JSON.stringify(orderArray));
-  showCart();
-  yourCart();
-  form.reset();
-}
 
 var form = document.getElementById('form');
 form.addEventListener('submit', createOrder);
 
+function createOrder (event) {
+  event.preventDefault();
+  // var newOrder = new Order;
+  var name = form.elements['product'].value;
+  var qty = parseInt(form.elements['quantity'].value);
+  orderArray.push([name, qty]);
+  localStorage.setItem('order', JSON.stringify(orderArray));
+  // showCart();
+  // yourCart();
+  form.reset();
+}
+
+//works to here!!
 // to change a cart button to show things in cart
-function showCart () {
-  var cartIcon = document.getElementById('the button');
-  var text = JSON.parse(localStorage.getItem('order', qty));
-  cartIcon.innerText = text;
-};
+// function showCart () {
+//   var cartIcon = document.getElementById('the button');
+//   var text = JSON.parse(localStorage.getItem('order', qty));
+//   cartIcon.innerText = text;
+// };
 
 function yourCart () {
-  var cartItems = document.getElementById('table of some sort');
-  // var orderImage = document.createElement('td');
-  // cartItems.appendChild(orderSummary);
-  //find way to insert picture
-  // orderImageHTML =
+  var cartItems = document.getElementById('theTable');
+  var orderSummary = document.createElement('tr');
+  cartItems.appendChild(orderSummary);
+  var orderImage = document.createElement('td');
+  orderSummary.appendChild(orderImage);
+  orderImage.innerHTML = '<img />';
+  for (var i = 0; i < productList.length; i++) {
+    if (productList[i].name === JSON.parse(localStorage.getItem('order', name)) {
+      img.src = productList[i].path;
+    }
+  }
+  find way to insert picture
+  orderImageHTML =
   var orderName = document.createElement('td');
   cartItems.appendChild(orderName);
   orderName.innerText = localStorage.getItem('order', name);
