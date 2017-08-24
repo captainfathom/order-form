@@ -41,24 +41,30 @@ var wineGlass = new Product ('wine-glass', 'img/wine-glass.jpg', 'wineGlass');
 // };
 // var name = ' ';
 // var qty = ' ';
-var orderArray = [];
+if (localStorage.getItem('order')) {
+  var orderArray = JSON.parse(localStorage.getItem('order'));
+} else {
+  var orderArray = [];
+};
 // function to create new order instance.
-function createOrder (event) {
-  event.preventDefault();
-  // var newOrder = new Order;
-  name = this.elements['products'].value;
-  qty = parseInt(this.elements['quantity'].value);
-  orderArray.push([name, qty]);
-  localStorage.setItem('order', JSON.stringify(orderArray));
-  showCart();
-  yourCart();
-  form.reset();
-}
 
 var form = document.getElementById('form');
 form.addEventListener('submit', createOrder);
 
-// to change a cart button to show things in cart
+function createOrder (event) {
+  event.preventDefault();
+  // var newOrder = new Order;
+  var name = form.elements['product'].value;
+  var qty = parseInt(form.elements['quantity'].value);
+  orderArray.push([name, qty]);
+  localStorage.setItem('order', JSON.stringify(orderArray));
+  // showCart();
+  // yourCart();
+  form.reset();
+}
+
+//works to here!!
+to change a cart button to show things in cart
 function showCart () {
   var cartIcon = document.getElementById('the button');
   var text = JSON.parse(localStorage.getItem('order', qty));
@@ -66,11 +72,16 @@ function showCart () {
 };
 
 function yourCart () {
-  var cartItems = document.getElementById('table of some sort');
-  // var orderImage = document.createElement('td');
-  // cartItems.appendChild(orderSummary);
-  //find way to insert picture
-  // orderImageHTML =
+  var cartItems = document.getElementById('theTable');
+  var orderImage = document.createElement('td');
+  cartItems.appendChild(orderImage);
+  for (var i = 0; i < productList.length; i++) {
+    if (productList[i].name === JSON.parse(localStorage.getItem('order', name)) {
+      orderImage.innerHTML = productList[i].path;
+    }
+  }
+  find way to insert picture
+  orderImageHTML =
   var orderName = document.createElement('td');
   cartItems.appendChild(orderName);
   orderName.innerText = localStorage.getItem('order', name);
