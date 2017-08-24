@@ -21,7 +21,7 @@ var breakfast = new Product ('breakfast', 'img/breakfast.jpg', 'breakfast');
 var bubblegum = new Product ('bubblegum', 'img/bubblegum.jpg', 'bubblegum');
 var chair = new Product ('chair', 'img/chair.jpg', 'chair');
 var cthulhu = new Product ('cthulhu', 'img/cthulhu.jpg', 'cthulhu');
-var dogDuck = new Product ('dog duck', 'img/dog-duck.jpg', 'dogDuck');
+var dogDuck = new Product ('dog-duck', 'img/dog-duck.jpg', 'dogDuck');
 var dragon = new Product ('dragon', 'img/dragon.jpg', 'dragon');
 var pen = new Product ('pen', 'img/pen.jpg', 'pen');
 var petSweep = new Product ('pet-sweep', 'img/pet-sweep.jpg', 'petSweep');
@@ -64,20 +64,23 @@ function createOrder (event) {
 }
 
 //works to here!!
-to change a cart button to show things in cart
-function showCart () {
-  var cartIcon = document.getElementById('the button');
-  var text = JSON.parse(localStorage.getItem('order', qty));
-  cartIcon.innerText = text;
-};
+// to change a cart button to show things in cart
+// function showCart () {
+//   var cartIcon = document.getElementById('the button');
+//   var text = JSON.parse(localStorage.getItem('order', qty));
+//   cartIcon.innerText = text;
+// };
 
 function yourCart () {
   var cartItems = document.getElementById('theTable');
+  var orderSummary = document.createElement('tr');
+  cartItems.appendChild(orderSummary);
   var orderImage = document.createElement('td');
-  cartItems.appendChild(orderImage);
+  orderSummary.appendChild(orderImage);
+  orderImage.innerHTML = '<img />';
   for (var i = 0; i < productList.length; i++) {
     if (productList[i].name === JSON.parse(localStorage.getItem('order', name)) {
-      orderImage.innerHTML = productList[i].path;
+      img.src = productList[i].path;
     }
   }
   find way to insert picture
