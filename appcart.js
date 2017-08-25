@@ -33,25 +33,23 @@ var waterCan = new Product ('water-can', 'img/water-can.jpg', 'waterCan');
 var wineGlass = new Product ('wine-glass', 'img/wine-glass.jpg', 'wineGlass');
 
 
-if (localStorage.getItem('name')) {
-  orderArrayName = JSON.parse(localStorage.getItem('name'));
-  orderArrayQty = JSON.parse(localStorage.getItem('qty'));
-} else {
-  var orderArrayName = [];
-  var orderArrayQty = [];
-};
+var orderArrayName = JSON.parse(localStorage.getItem('name'));
+var orderArrayQty = JSON.parse(localStorage.getItem('qty'));
+// } else {
+//   var orderArrayName = [];
+//   var orderArrayQty = [];
+// };
 
 function yourCart () {
   var cartItems = document.getElementById('theTable');
-  var purchaseItem = JSON.parse(localStorage.getItem('name', orderArrayName));
-  for (var i = 0; i < purchaseItem.length; i++) {
+  // var orderArrayName = JSON.parse(localStorage.getItem('name', orderArrayName));
+  for (var i = 0; i < orderArrayName.length; i++) {
     var orderSummary = document.createElement('tr');
     cartItems.appendChild(orderSummary);
     var orderImage = document.createElement('td');
-    // orderImage.innerText = 'put picture here';
     orderSummary.appendChild(orderImage);
     for (var j = 0; j < productList.length; j++) {
-      if (productList[j].name === purchaseItem[i]) {
+      if (productList[j].name === orderArrayName[i]) {
         var image = document.createElement('img');
         orderImage.appendChild(image);
         image.src = productList[j].path;
@@ -59,26 +57,27 @@ function yourCart () {
     }
     var orderName = document.createElement('td');
     orderSummary.appendChild(orderName);
-    // orderName.innerText = JSON.parse(localStorage.getItem('name', orderArrayName[0]));
-    orderName.innerText = purchaseItem[i];
+    orderName.innerText = orderArrayName[i];
     var orderQty = document.createElement('td');
     orderSummary.appendChild(orderQty);
-    var purchaseQty = JSON.parse(localStorage.getItem('qty', orderArrayQty));
-    orderQty.innerText = purchaseQty[i];
+    // var orderArrayQty = JSON.parse(localStorage.getItem('qty', orderArrayQty));
+    orderQty.innerText = orderArrayQty[i];
     var buttonTd = document.createElement('td');
     orderSummary.appendChild(buttonTd);
     var button = document.createElement('button');
     buttonTd.appendChild(button);
     button.innerText = 'Delete Item';
-    button.id = 'button' + i;
-    button.className = 'deleteMe';
+    button.id = orderArrayName[i];
+    button.addEventListener('click', deleteOrder);
   }
 };
 yourCart();
 
-var deleteItem = document.getElementsByClass('deleteMe');
-deleteItem.addEventListener('submit', deleteOrder);
-
 function deleteOrder (event) {
-  localStorage.setItem('order', JSON.stringify('order', ' '));
+  var index = orderArrayName.indexOf(event.target.id);
+  orderArrayName.splice(index, 1);
+  orderArrayQty.splice(index, 1);
+  localStorage.setItem('name', JSON.stringify(orderArrayName));
+  localStorage.setItem('qty', JSON.stringify(orderArrayQty));
+  location.reload();
 }

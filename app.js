@@ -33,13 +33,13 @@ var waterCan = new Product ('water-can', 'img/water-can.jpg', 'waterCan');
 var wineGlass = new Product ('wine-glass', 'img/wine-glass.jpg', 'wineGlass');
 
 
-if (localStorage.getItem('name')) {
-  orderArrayName = JSON.parse(localStorage.getItem('name'));
-  orderArrayQty = JSON.parse(localStorage.getItem('qty'));
-} else {
-  var orderArrayName = [];
-  var orderArrayQty = [];
-};
+// if (localStorage.getItem('name')) {
+//   orderArrayName = JSON.parse(localStorage.getItem('name'));
+//   orderArrayQty = JSON.parse(localStorage.getItem('qty'));
+// } else {
+var orderArrayName = [];
+var orderArrayQty = [];
+// };
 
 var form = document.getElementById('form');
 form.addEventListener('submit', createOrder);
@@ -48,6 +48,10 @@ function createOrder (event) {
   event.preventDefault();
   var name = form.elements['product'].value;
   var qty = parseInt(form.elements['quantity'].value);
+  if (localStorage.getItem('name')) {
+    orderArrayName = JSON.parse(localStorage.getItem('name'));
+    orderArrayQty = JSON.parse(localStorage.getItem('qty'));
+  }
   orderArrayName.push(name);
   orderArrayQty.push(qty);
   localStorage.setItem('name', JSON.stringify(orderArrayName));
