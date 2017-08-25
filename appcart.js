@@ -41,16 +41,44 @@ if (localStorage.getItem('name')) {
   var orderArrayQty = [];
 };
 
-var form = document.getElementById('form');
-form.addEventListener('submit', createOrder);
+function yourCart () {
+  var cartItems = document.getElementById('theTable');
+  var purchaseItem = JSON.parse(localStorage.getItem('name', orderArrayName));
+  for (var i = 0; i < purchaseItem.length; i++) {
+    var orderSummary = document.createElement('tr');
+    cartItems.appendChild(orderSummary);
+    var orderImage = document.createElement('td');
+    // orderImage.innerText = 'put picture here';
+    orderSummary.appendChild(orderImage);
+    for (var j = 0; j < productList.length; j++) {
+      if (productList[j].name === purchaseItem[i]) {
+        var image = document.createElement('img');
+        orderImage.appendChild(image);
+        image.src = productList[j].path;
+      }
+    }
+    var orderName = document.createElement('td');
+    orderSummary.appendChild(orderName);
+    // orderName.innerText = JSON.parse(localStorage.getItem('name', orderArrayName[0]));
+    orderName.innerText = purchaseItem[i];
+    var orderQty = document.createElement('td');
+    orderSummary.appendChild(orderQty);
+    var purchaseQty = JSON.parse(localStorage.getItem('qty', orderArrayQty));
+    orderQty.innerText = purchaseQty[i];
+    var buttonTd = document.createElement('td');
+    orderSummary.appendChild(buttonTd);
+    var button = document.createElement('button');
+    buttonTd.appendChild(button);
+    button.innerText = 'Delete Item';
+    button.id = 'button' + i;
+    button.className = 'deleteMe';
+  }
+};
+yourCart();
 
-function createOrder (event) {
-  event.preventDefault();
-  var name = form.elements['product'].value;
-  var qty = parseInt(form.elements['quantity'].value);
-  orderArrayName.push(name);
-  orderArrayQty.push(qty);
-  localStorage.setItem('name', JSON.stringify(orderArrayName));
-  localStorage.setItem('qty', JSON.stringify(orderArrayQty));
-  form.reset();
+var deleteItem = document.getElementsByClass('deleteMe');
+deleteItem.addEventListener('submit', deleteOrder);
+
+function deleteOrder (event) {
+  localStorage.setItem('order', JSON.stringify('order', ' '));
 }
