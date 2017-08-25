@@ -1,7 +1,5 @@
 'use strict';
 
-var maxClicks = 25;
-
 function Product (name, path, id) {
   this.name = name;
   this.path = path;
@@ -41,23 +39,28 @@ var wineGlass = new Product ('wine-glass', 'img/wine-glass.jpg', 'wineGlass');
 // };
 // var name = ' ';
 // var qty = ' ';
-if (localStorage.getItem('order')) {
-  var orderArray = JSON.parse(localStorage.getItem('order'));
-} else {
-  var orderArray = [];
-};
-// function to create new order instance.
 
-var form = document.getElementById('form');
-form.addEventListener('submit', createOrder);
+
+if (localStorage.getItem('name')) {
+  orderArrayName = JSON.parse(localStorage.getItem('name'));
+  orderArrayQty = JSON.parse(localStorage.getItem('qty'));
+} else {
+  var orderArrayName = [];
+  var orderArrayQty = [];
+};
+
+// var form = document.getElementById('form');
+// form.addEventListener('submit', createOrder);
 
 function createOrder (event) {
   event.preventDefault();
   // var newOrder = new Order;
   var name = form.elements['product'].value;
   var qty = parseInt(form.elements['quantity'].value);
-  orderArray.push([name, qty]);
-  localStorage.setItem('order', JSON.stringify(orderArray));
+  orderArrayName.push(name);
+  orderArrayQty.push(qty);
+  localStorage.setItem('name', JSON.stringify(orderArrayName));
+  localStorage.setItem('qty', JSON.stringify(orderArrayQty));
   // showCart();
   // yourCart();
   form.reset();
@@ -73,31 +76,43 @@ function createOrder (event) {
 
 function yourCart () {
   var cartItems = document.getElementById('theTable');
-  var orderSummary = document.createElement('tr');
-  cartItems.appendChild(orderSummary);
-  var orderImage = document.createElement('td');
-  orderSummary.appendChild(orderImage);
-  orderImage.innerHTML = '<img />';
-  for (var i = 0; i < productList.length; i++) {
-    if (productList[i].name === JSON.parse(localStorage.getItem('order', name)) {
-      img.src = productList[i].path;
+  var purchaseItem = JSON.parse(localStorage.getItem('name', orderArrayName));
+  for (var i = 0; i < purchaseItem.length; i++) {
+    var orderSummary = document.createElement('tr');
+    cartItems.appendChild(orderSummary);
+    var orderImage = document.createElement('td');
+    // orderImage.innerText = 'put picture here';
+    orderSummary.appendChild(orderImage);
+    for (var j = 0; j < productList.length; j++) {
+      if (productList[j].name === purchaseItem[i]) {
+        var image = document.createElement('img');
+        orderImage.appendChild(image);
+        image.src = productList[j].path;
+      }
     }
+    var orderName = document.createElement('td');
+    orderSummary.appendChild(orderName);
+    // orderName.innerText = JSON.parse(localStorage.getItem('name', orderArrayName[0]));
+    orderName.innerText = purchaseItem[i];
+    var orderQty = document.createElement('td');
+    orderSummary.appendChild(orderQty);
+    var purchaseQty = JSON.parse(localStorage.getItem('qty', orderArrayQty));
+    orderQty.innerText = purchaseQty[i];
+    var buttonTd = document.createElement('td');
+    orderSummary.appendChild(buttonTd);
+    var button = document.createElement('button');
+    buttonTd.appendChild(button);
+    button.innerText = 'Delete Item';
   }
-  find way to insert picture
-  orderImageHTML =
-  var orderName = document.createElement('td');
-  cartItems.appendChild(orderName);
-  orderName.innerText = localStorage.getItem('order', name);
-  var orderQty = document.createElement('td');
-  cartItems.appendChild(orderQty);
-  orderQty.innerText = localStorage.getItem('order', qty);
 };
+yourCart();
+// console.log(orderArray);
 
-function deleteOrder () {
-  event.preventDefault();
-  localStorage.setItem('order', JSON.stringify('order', ' '));
-  yourCart();
-}
-
-var delete = document.getElementById('delete button...or whatever we call it');
-form.addEventListener('submit', deleteOrder);
+// function deleteOrder () {
+//   event.preventDefault();
+//   localStorage.setItem('order', JSON.stringify('order', ' '));
+//   yourCart();
+// }
+//
+// var delete = document.getElementById('delete button...or whatever we call it');
+// form.addEventListener('submit', deleteOrder);
