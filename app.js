@@ -32,14 +32,8 @@ var usb = new Product ('usb', 'img/usb.gif', 'usb');
 var waterCan = new Product ('water-can', 'img/water-can.jpg', 'waterCan');
 var wineGlass = new Product ('wine-glass', 'img/wine-glass.jpg', 'wineGlass');
 
-
-// if (localStorage.getItem('name')) {
-//   orderArrayName = JSON.parse(localStorage.getItem('name'));
-//   orderArrayQty = JSON.parse(localStorage.getItem('qty'));
-// } else {
 var orderArrayName = [];
 var orderArrayQty = [];
-// };
 
 var form = document.getElementById('form');
 form.addEventListener('submit', createOrder);

@@ -35,14 +35,9 @@ var wineGlass = new Product ('wine-glass', 'img/wine-glass.jpg', 'wineGlass');
 
 var orderArrayName = JSON.parse(localStorage.getItem('name'));
 var orderArrayQty = JSON.parse(localStorage.getItem('qty'));
-// } else {
-//   var orderArrayName = [];
-//   var orderArrayQty = [];
-// };
 
 function yourCart () {
   var cartItems = document.getElementById('theTable');
-  // var orderArrayName = JSON.parse(localStorage.getItem('name', orderArrayName));
   for (var i = 0; i < orderArrayName.length; i++) {
     var orderSummary = document.createElement('tr');
     cartItems.appendChild(orderSummary);
@@ -60,7 +55,6 @@ function yourCart () {
     orderName.innerText = orderArrayName[i];
     var orderQty = document.createElement('td');
     orderSummary.appendChild(orderQty);
-    // var orderArrayQty = JSON.parse(localStorage.getItem('qty', orderArrayQty));
     orderQty.innerText = orderArrayQty[i];
     var buttonTd = document.createElement('td');
     orderSummary.appendChild(buttonTd);
